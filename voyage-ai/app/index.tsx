@@ -6,6 +6,15 @@ export default function Index() {
       style={{
         flex: 1,
       }}
-    ></View>
+    >
+      <Text
+        style={{
+          fontSize: 30,
+          fontFamily: "poppins-bold",
+        }}
+      >
+        Edit app/index.tsx to edit this screen.
+      </Text>
+    </View>
   );
 }
