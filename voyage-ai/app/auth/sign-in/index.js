@@ -4,20 +4,51 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  ToastAndroid,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation, useRouter } from "expo-router";
 import { Colors } from "./../../../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./../../../configs/FirebaseConfig";
 
 export default function SignIn() {
   const navigation = useNavigation();
   const router = useRouter();
+
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
   useEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, []);
+
+  const onSignIn = () => {
+    if (!email && !password) {
+      ToastAndroid.show("Please Enter Email & Passsword", ToastAndroid.LONG);
+      return;
+    }
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage, error.code);
+        if (errorCode == "auth/invalid-credential") {
+          ToastAndroid.show("Invalid credentials", ToastAndroid.LONG);
+        }
+      });
+  };
+
   return (
     <View
       style={{
@@ -75,6 +106,7 @@ export default function SignIn() {
         </Text>
         <TextInput
           style={styles.input}
+          onChangeText={(value) => setEmail(value)}
           placeholder="Enter Email"
         />
       </View>
@@ -94,12 +126,14 @@ export default function SignIn() {
         <TextInput
           secureTextEntry={true}
           style={styles.input}
+          onChangeText={(value) => setPassword(value)}
           placeholder="Enter Password"
         />
       </View>
 
       {/* Sign In Button  */}
       <TouchableOpacity
+        onPress={onSignIn}
         style={{
           padding: 20,
           backgroundColor: Colors.PRIMARY,
