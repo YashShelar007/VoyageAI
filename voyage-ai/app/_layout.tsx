@@ -8,7 +8,11 @@ export default function RootLayout() {
     "poppins-bold": require("./../assets/fonts/Poppins-Bold.ttf"),
   });
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Stack.Screen name="index" />
     </Stack>
   );
