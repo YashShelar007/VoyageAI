@@ -35,10 +35,14 @@ export default function GenerateTrip() {
     let responseText;
     for (let i = 0; i < 3; i++) {
       // Retry up to 3 times
-      const result = await chatSession.sendMessage(FINAL_PROMPT);
-      responseText = result.response.text();
-      if (responseText && responseText.trim() !== "") {
-        break; // Exit loop if valid response received
+      try {
+        const result = await chatSession.sendMessage(FINAL_PROMPT);
+        responseText = await result.response.text(); // Await response text
+        if (responseText && responseText.trim() !== "") {
+          break; // Exit loop if valid response received
+        }
+      } catch (error) {
+        console.warn("Error fetching AI response: ", error);
       }
       console.warn("Retrying AI response...");
     }
@@ -53,16 +57,17 @@ export default function GenerateTrip() {
     try {
       const tripResp = JSON.parse(responseText);
       const docId = Date.now().toString();
-      const result_ = await setDoc(doc(db, "UserTrips", docId), {
+      await setDoc(doc(db, "UserTrips", docId), {
         userEmail: user.email,
         tripPlan: tripResp, // AI Result
         tripData: JSON.stringify(tripData), //User Selection Data
         docId: docId,
-      })
-        .then((resp) => {})
-        .catch((e) => console.log(e));
+      });
     } catch (error) {
       console.error("Error parsing JSON after retries: ", error);
+      console.log("Response text received: ", responseText); // Log response text
+      setLoading(false);
+      return;
     }
 
     router.push("/mytrip");
