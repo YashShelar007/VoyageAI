@@ -28,7 +28,7 @@ export const chatSession = model.startChat({
       role: "user",
       parts: [
         {
-          text: "Generate Travel Plan for Location : New York, NY, USA, for 3 Days and 2 Night for A Couple with a Moderate budget with a Flight details , Flight Price with Booking url, Hotels options list with HotelName, Hotel address, Price, hotel image url, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates, ticket Pricing, Time t travel each of the location for 1 days and 1 night with each day plan with best time to visit in JSON format.",
+          text: "Generate Travel Plan for Location : New York, NY, USA, for 3 Days and 2 Night for A Couple with a Moderate budget with 1 Flight details , Flight Price with Booking url, 2 Hotels options list with HotelName, Hotel address, Price, hotel image url, geo coordinates, rating, descriptions and suggest itinerary with 3 placeName, Place Details, Place Image Url, Geo Coordinates, ticket Pricing, Time t travel each of the location for 1 days and 1 night with each day plan with best time to visit in precise JSON format.",
         },
       ],
     },
