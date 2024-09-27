@@ -81,7 +81,7 @@ export default function SelectTraveler() {
           borderRadius: 15,
           marginTop: 20,
         }}
-        onPress={() => router.replace("create-trip/select-dates")}
+        onPress={() => router.push("create-trip/select-dates")}
       >
         <Text
           style={{

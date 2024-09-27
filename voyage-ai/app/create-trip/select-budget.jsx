@@ -38,6 +38,7 @@ export default function SelectBudget() {
       ToastAndroid.show("Select Your Budget", ToastAndroid.LONG);
       return;
     }
+    router.push("/create-trip/review-trip");
   };
   return (
     <View
