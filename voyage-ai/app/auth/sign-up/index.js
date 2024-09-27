@@ -46,6 +46,8 @@ export default function SignUp() {
         console.log("--", errorMessage, errorCode);
         // ..
       });
+
+    router.replace("/mytrip");
   };
 
   return (

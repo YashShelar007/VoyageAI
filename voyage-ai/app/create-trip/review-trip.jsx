@@ -206,6 +206,7 @@ export default function ReviewTrip() {
       </View>
 
       <TouchableOpacity
+        onPress={() => router.replace("/create-trip/generate-trip")}
         style={{
           padding: 15,
           backgroundColor: Colors.PRIMARY,
